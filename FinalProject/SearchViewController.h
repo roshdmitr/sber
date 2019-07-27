@@ -12,6 +12,7 @@
 #import "APIDictionaryKeysSearch.h"
 #import "IntradayViewController.h"
 #import "FavouritesViewController.h"
+#import "AppDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

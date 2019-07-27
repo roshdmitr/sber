@@ -47,10 +47,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    IntradayViewController *intradayViewController = [[IntradayViewController alloc] init];
-    [intradayViewController setSymbol:_searchResults[indexPath.row][APIDictionaryKeySymbol]];
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (appDelegate.intradayViewController == nil)
+    {
+        appDelegate.intradayViewController = [[IntradayViewController alloc] init];
+    }
+    [appDelegate.intradayViewController setSymbol:_searchResults[indexPath.row][APIDictionaryKeySymbol]];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back to search" style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(backButtonClicked)];
-    [self.navigationController pushViewController:intradayViewController animated:YES];
+    [self.navigationController pushViewController:appDelegate.intradayViewController animated:YES];
 }
 
 - (void)backButtonClicked

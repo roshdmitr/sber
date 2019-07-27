@@ -27,6 +27,7 @@
 @property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
 @property (nonatomic, strong) NSFetchRequest *fetchRequest;
 @property (nonatomic, strong) UIBarButtonItem *addToFavouritesButton;
+@property (nonatomic, assign) BOOL addedToFavourites;
 
 @end
 
@@ -68,13 +69,58 @@
 
 - (void)addToFavouritesButtonClicked
 {
-    Stock *stock = [NSEntityDescription insertNewObjectForEntityForName:@"Stock" inManagedObjectContext:_coreDataContext];
-    stock.symbol = _symbol;
-    stock.lastUpdated = _lastUpdated;
-    NSError *error = nil;
-    if (![stock.managedObjectContext save:&error])
+    if (![self checkAddedToFavourites])
     {
-        NSLog(@"Unable to add to favourites %@", error);
+        Stock *stock = [NSEntityDescription insertNewObjectForEntityForName:@"Stock" inManagedObjectContext:_coreDataContext];
+        stock.symbol = _symbol;
+        stock.lastUpdated = _lastUpdated;
+        NSError *error = nil;
+        if (![stock.managedObjectContext save:&error])
+        {
+            NSLog(@"Unable to add to favourites %@", error);
+        }
+    }
+    else
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Already added to favourites!" preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:alertController animated:YES completion:^{
+        }];
+        UIAlertAction *deleteButton = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self deleteFromFavourites];
+        }];
+        UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alertController addAction:deleteButton];
+        [alertController addAction:cancelButton];
+        [self.navigationController pushViewController:alertController animated:YES];
+    }
+}
+
+- (void)deleteFromFavourites
+{
+    _fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Stock"];
+    _fetchRequest.predicate = [NSPredicate predicateWithFormat:@"symbol == %@", _symbol];
+    NSError *error = nil;
+    NSArray *fetchedResults = [_coreDataContext executeFetchRequest:_fetchRequest error:&error];
+    [_coreDataContext deleteObject:fetchedResults[0]];
+    error = nil;
+    [_coreDataContext save:&error];
+}
+
+- (BOOL)checkAddedToFavourites
+{
+    _fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Stock"];
+    _fetchRequest.predicate = [NSPredicate predicateWithFormat:@"symbol == %@", _symbol];
+    NSError *error = nil;
+    NSArray *fetchedResults = [_coreDataContext executeFetchRequest:_fetchRequest error:&error];
+    if (fetchedResults.count == 0 || fetchedResults == nil)
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
     }
 }
 

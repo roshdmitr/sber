@@ -50,11 +50,12 @@
     [_collectionView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20].active = YES;
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     _numberOfItems = [self countNumberOfItems];
     [self loadFromCoreData];
+    [_collectionView reloadData];
 }
 
 - (NSInteger)countNumberOfItems
@@ -88,7 +89,6 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     FavouritesCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cvidentifier" forIndexPath:indexPath];
-    cell.backgroundColor = UIColor.redColor;
     if (_favourites == nil || _favourites.count == 0)
     {
         [self loadFromCoreData];
@@ -102,6 +102,16 @@
     return cell;
 }
 
-
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (appDelegate.intradayViewController == nil)
+    {
+        appDelegate.intradayViewController = [[IntradayViewController alloc] init];
+    }
+    Stock *stock = _favourites[indexPath.row];
+    [appDelegate.intradayViewController setSymbol:stock.symbol];
+    [self.navigationController pushViewController:appDelegate.intradayViewController animated:YES];
+}
 
 @end

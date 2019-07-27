@@ -24,7 +24,7 @@
     [_label.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-10].active = YES;
     [_label.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:5].active = YES;
     [_label.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-5].active = YES;
-    _label.backgroundColor = UIColor.greenColor;
+    _label.backgroundColor = UIColor.grayColor;
     return self;
 }
 

@@ -11,6 +11,7 @@
 #import "CoreDataController.h"
 #import "Stock+CoreDataProperties.h"
 #import "FavouritesCollectionViewCell.h"
+#import "AppDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
