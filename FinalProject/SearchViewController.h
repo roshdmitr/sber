@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, NetworkServiceDelegate>
 
-@property (nonatomic, strong) UISearchController *searchController;
 
 @end
 

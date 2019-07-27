@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "NetworkService.h"
+#import "CoreDataController.h"
+#import "Stock+CoreDataProperties.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

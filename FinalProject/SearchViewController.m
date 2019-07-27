@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *searchResults;
+@property (nonatomic, strong) UISearchController *searchController;
 
 @end
 
@@ -19,19 +20,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden = NO;
     self.definesPresentationContext = YES;
+    self.navigationController.navigationBarHidden = NO;
     _tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    
     _searchController = [[UISearchController alloc] initWithSearchResultsController: nil];
     _searchController.searchBar.delegate = self;
     [_searchController.searchBar sizeToFit];
     _searchController.obscuresBackgroundDuringPresentation = NO;
     _searchController.searchBar.placeholder = @"Search";
+    
     self.navigationItem.searchController = _searchController;
     self.navigationItem.hidesSearchBarWhenScrolling = NO;
     self.navigationItem.title = @"Stocks";
+    
     [self.view addSubview:_tableView];
 }
 
@@ -45,11 +49,11 @@
 {
     IntradayViewController *intradayViewController = [[IntradayViewController alloc] init];
     [intradayViewController setSymbol:_searchResults[indexPath.row][APIDictionaryKeySymbol]];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back to search" style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(backButtonDidPress)];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back to search" style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(backButtonClicked)];
     [self.navigationController pushViewController:intradayViewController animated:YES];
 }
 
-- (void)backButtonDidPress
+- (void)backButtonClicked
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -58,7 +62,9 @@
 - (void)saveSearchResults:(NSArray *)searchResults
 {
     _searchResults = [[NSArray alloc] initWithArray:searchResults];
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 

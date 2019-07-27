@@ -12,6 +12,7 @@ static NSString *const APIKey = @"&apikey=BGS27VRZ3W3Z0ILR";
 static NSString *const searchURL = @"https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=";
 static NSString *const intradayURL = @"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=";
 static NSString *const timeIntervalURLPart = @"&interval=1min";
+static NSString *const APIDictionaryKeyTooMuchRequests = @"Note";
 
 @interface NetworkService ()
 
@@ -48,11 +49,16 @@ static NSString *const timeIntervalURLPart = @"&interval=1min";
         NSDictionary *intradayData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         if (error == nil)
         {
-            if ([self.delegate respondsToSelector:@selector(saveIntradayData::)])
+            if (intradayData[APIDictionaryKeyTooMuchRequests] == nil)
             {
-                dispatch_async(dispatch_get_main_queue(), ^{
+                if ([self.delegate respondsToSelector:@selector(saveIntradayData::)])
+                {
                     [self.delegate saveIntradayData:intradayData[APIDictionaryKeyTimeSeries] :intradayData[APIDictionaryKeyMetaData][APIDictionaryKeyLastRefreshed]];
-                });
+                }
+            }
+            else
+            {
+                NSLog(@"Too many requests");
             }
         }
         else
@@ -73,9 +79,7 @@ static NSString *const timeIntervalURLPart = @"&interval=1min";
         {
             if ([self.delegate respondsToSelector:@selector(saveSearchResults:)])
             {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate saveSearchResults:[self firstTimeParseOfSearchResults:searchResults]];
-                });
+                [self.delegate saveSearchResults:[self firstTimeParseOfSearchResults:searchResults]];
             }
         }
         else

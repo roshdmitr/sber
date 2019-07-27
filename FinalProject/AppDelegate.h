@@ -7,23 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
 #import "SearchViewController.h"
 #import "FavouritesViewController.h"
+#import "CoreDataController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong) SearchViewController *searchViewController;
-@property (nonatomic, strong) FavouritesViewController *favouritesViewController;
-@property (nonatomic, strong) UINavigationController *searchNavigationController;
-@property (nonatomic, strong) UINavigationController *favouritesNavigationController;
-@property (nonatomic, strong) UITabBarController *tabBarController;
-
-@property (readonly, strong) NSPersistentContainer *persistentContainer;
-
-- (void)saveContext;
-
 
 @end
 

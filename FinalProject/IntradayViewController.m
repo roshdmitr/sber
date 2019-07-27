@@ -24,6 +24,9 @@
 @property (nonatomic, strong) NSDictionary *arialHebrewBoldDict;
 @property (nonatomic, strong) UIFont *arialHebrew;
 @property (nonatomic, strong) NSDictionary *arialHebrewDict;
+@property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
+@property (nonatomic, strong) NSFetchRequest *fetchRequest;
+@property (nonatomic, strong) UIBarButtonItem *addToFavouritesButton;
 
 @end
 
@@ -58,10 +61,26 @@
     _arialHebrewDict = [NSDictionary dictionaryWithObject:_arialHebrew forKey:NSFontAttributeName];
     
     self.view.backgroundColor = UIColor.whiteColor;
+    
+    _addToFavouritesButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addToFavouritesButtonClicked)];
+    self.navigationItem.rightBarButtonItem = _addToFavouritesButton;
+}
+
+- (void)addToFavouritesButtonClicked
+{
+    Stock *stock = [NSEntityDescription insertNewObjectForEntityForName:@"Stock" inManagedObjectContext:_coreDataContext];
+    stock.symbol = _symbol;
+    stock.lastUpdated = _lastUpdated;
+    NSError *error = nil;
+    if (![stock.managedObjectContext save:&error])
+    {
+        NSLog(@"Unable to add to favourites %@", error);
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [_timer invalidate];
 }
 
@@ -92,7 +111,8 @@
     [super viewDidAppear:animated];
     [NetworkService sharedInstance].delegate = self;
     [self updateLabelData];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(updateLabelData) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(updateLabelData) userInfo:nil repeats:YES];
+    _coreDataContext = [CoreDataController sharedInstance].persistentContainer.viewContext;
 }
 
 - (void)setupMainLabel
@@ -122,7 +142,7 @@
     [label.topAnchor constraintEqualToAnchor:constraintLabel.bottomAnchor constant:constraintConstantY].active = YES;
     [label.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:constraintConstantX].active = YES;
     [label.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-constraintConstantX].active = YES;
-    NSAttributedString *boldAttrString = [[NSMutableAttributedString alloc] initWithString:text attributes:_arialHebrewBoldDict];
+    NSAttributedString *boldAttrString = [[NSAttributedString alloc] initWithString:text attributes:_arialHebrewBoldDict];
     label.numberOfLines = 1;
     label.textAlignment = NSTextAlignmentCenter;
     label.attributedText = boldAttrString;
@@ -138,7 +158,9 @@
         NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:_intradayData[_lastUpdated][APIDictionaryKey] attributes:_arialHebrewDict];
         [boldAttrString appendAttributedString:attrString];
     }
-    label.attributedText = boldAttrString;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        label.attributedText = boldAttrString;
+    });
 }
 
 - (void)updateLastUpdatedLabel
@@ -146,7 +168,9 @@
     NSMutableAttributedString *boldAttrString = [[NSMutableAttributedString alloc] initWithString:@"Last updated at: " attributes:_arialHebrewBoldDict];
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:_lastUpdated attributes:_arialHebrewDict];
     [boldAttrString appendAttributedString:attrString];
-    _lastUpdatedLabel.attributedText = boldAttrString;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.lastUpdatedLabel.attributedText = boldAttrString;
+    });
 }
 
 

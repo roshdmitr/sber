@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "NetworkService.h"
+#import "CoreDataController.h"
+#import "Stock+CoreDataProperties.h"
+#import "FavouritesCollectionViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FavouritesViewController : UIViewController <NetworkServiceDelegate>
+@interface FavouritesViewController : UIViewController <NetworkServiceDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @end
 
