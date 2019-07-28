@@ -108,16 +108,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0A0E002522EC83840022BF8D /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				0A8A7FE622DA28B100CC1D8F /* Main.storyboard */,
-				0A8A7FEE22DA28B200CC1D8F /* LaunchScreen.storyboard */,
-			);
-			name = Storyboards;
-			sourceTree = "<group>";
-		};
-		0A0E002922EC84540022BF8D /* FinalProjectCoreData */ = {
+		0A0E002922EC84540022BF8D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				0AA0100422ECFB78008DD5AE /* FinalProject.xcdatamodeld */,
@@ -125,20 +116,10 @@
 				0A0E002B22EC8B8A0022BF8D /* CoreDataController.m */,
 				0AC77F2522ECD6AD0056E14B /* Stock */,
 			);
-			path = FinalProjectCoreData;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
-		0A3FDFB522DB903300F04DA2 /* NetworkService */ = {
-			isa = PBXGroup;
-			children = (
-				0A9D2E7B22E7C0410010B7A0 /* NetworkServiceDelegate.h */,
-				0A3FDFB622DB906300F04DA2 /* NetworkService.h */,
-				0A3FDFB722DB906300F04DA2 /* NetworkService.m */,
-			);
-			name = NetworkService;
-			sourceTree = "<group>";
-		};
-		0A83999A22E9103400C18B0F /* APIDictionaryKeys */ = {
+		0A245C8F22EE3E8E0031DEF1 /* APIDictionaryKeys */ = {
 			isa = PBXGroup;
 			children = (
 				0A83999B22E9105C00C18B0F /* APIDictionaryKeysSearch.h */,
@@ -146,23 +127,88 @@
 				0AD54B7722EBA8030030547F /* APIDictionaryKeysQuote.h */,
 				0AD54B7822EBA8030030547F /* APIDictionaryKeysQuote.m */,
 			);
-			name = APIDictionaryKeys;
+			path = APIDictionaryKeys;
 			sourceTree = "<group>";
 		};
-		0A88777C22E9E1A900412E59 /* SearchViewController */ = {
+		0A245C9022EE3EBE0031DEF1 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				0A9D2E7B22E7C0410010B7A0 /* NetworkServiceDelegate.h */,
+				0A3FDFB622DB906300F04DA2 /* NetworkService.h */,
+				0A3FDFB722DB906300F04DA2 /* NetworkService.m */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		0A245C9122EE3ED10031DEF1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0A245C9422EE3EF10031DEF1 /* IntradayViewController */,
+				0A245C9322EE3EE70031DEF1 /* FavouritesViewController */,
+				0A245C9222EE3EDF0031DEF1 /* SearchViewController */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0A245C9222EE3EDF0031DEF1 /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
 				0A88777D22E9E1E100412E59 /* SearchViewController.h */,
 				0A88777E22E9E1E100412E59 /* SearchViewController.m */,
 			);
-			name = SearchViewController;
+			path = SearchViewController;
+			sourceTree = "<group>";
+		};
+		0A245C9322EE3EE70031DEF1 /* FavouritesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0AD54B7322EB39BB0030547F /* FavouritesViewController.h */,
+				0AD54B7422EB39BB0030547F /* FavouritesViewController.m */,
+				0A245C9522EE3F060031DEF1 /* FavouritesCollectionViewCell */,
+			);
+			path = FavouritesViewController;
+			sourceTree = "<group>";
+		};
+		0A245C9422EE3EF10031DEF1 /* IntradayViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0AD54B6F22EA6A910030547F /* IntradayViewController.h */,
+				0AD54B7022EA6A910030547F /* IntradayViewController.m */,
+			);
+			path = IntradayViewController;
+			sourceTree = "<group>";
+		};
+		0A245C9522EE3F060031DEF1 /* FavouritesCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				0AA0100822ED0351008DD5AE /* FavouritesCollectionViewCell.h */,
+				0AA0100922ED0351008DD5AE /* FavouritesCollectionViewCell.m */,
+			);
+			path = FavouritesCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		0A245C9622EE3F5A0031DEF1 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				0A8A7FE622DA28B100CC1D8F /* Main.storyboard */,
+				0A8A7FEE22DA28B200CC1D8F /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		0A245C9722EE3F7D0031DEF1 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				0A8A7FE022DA28B100CC1D8F /* AppDelegate.h */,
+				0A8A7FE122DA28B100CC1D8F /* AppDelegate.m */,
+			);
+			path = AppDelegate;
 			sourceTree = "<group>";
 		};
 		0A8A7FD422DA28B100CC1D8F = {
 			isa = PBXGroup;
 			children = (
 				0A8A7FDF22DA28B100CC1D8F /* FinalProject */,
-				0A0E002922EC84540022BF8D /* FinalProjectCoreData */,
 				0A8A7FFB22DA28B200CC1D8F /* FinalProjectTests */,
 				0A8A800622DA28B200CC1D8F /* FinalProjectUITests */,
 				0A8A7FDE22DA28B100CC1D8F /* Products */,
@@ -182,14 +228,12 @@
 		0A8A7FDF22DA28B100CC1D8F /* FinalProject */ = {
 			isa = PBXGroup;
 			children = (
-				0A83999A22E9103400C18B0F /* APIDictionaryKeys */,
-				0A3FDFB522DB903300F04DA2 /* NetworkService */,
-				0AD54B6E22EA6A6A0030547F /* IntradayViewController */,
-				0AD54B7222EB398E0030547F /* FavouritesViewController */,
-				0A88777C22E9E1A900412E59 /* SearchViewController */,
-				0A0E002522EC83840022BF8D /* Storyboards */,
-				0A8A7FE022DA28B100CC1D8F /* AppDelegate.h */,
-				0A8A7FE122DA28B100CC1D8F /* AppDelegate.m */,
+				0A245C8F22EE3E8E0031DEF1 /* APIDictionaryKeys */,
+				0A245C9122EE3ED10031DEF1 /* ViewControllers */,
+				0A245C9022EE3EBE0031DEF1 /* NetworkService */,
+				0A0E002922EC84540022BF8D /* CoreData */,
+				0A245C9722EE3F7D0031DEF1 /* AppDelegate */,
+				0A245C9622EE3F5A0031DEF1 /* Storyboards */,
 				0A8A7FF222DA28B200CC1D8F /* main.m */,
 				0A8A7FF122DA28B200CC1D8F /* Info.plist */,
 				0A8A7FEC22DA28B200CC1D8F /* Assets.xcassets */,
@@ -215,15 +259,6 @@
 			path = FinalProjectUITests;
 			sourceTree = "<group>";
 		};
-		0AA0100722ED032D008DD5AE /* FavouritesCollectionViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				0AA0100822ED0351008DD5AE /* FavouritesCollectionViewCell.h */,
-				0AA0100922ED0351008DD5AE /* FavouritesCollectionViewCell.m */,
-			);
-			name = FavouritesCollectionViewCell;
-			sourceTree = "<group>";
-		};
 		0AC77F2522ECD6AD0056E14B /* Stock */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,25 +268,6 @@
 				0AC77EDA22ECC4210056E14B /* Stock+CoreDataProperties.m */,
 			);
 			path = Stock;
-			sourceTree = "<group>";
-		};
-		0AD54B6E22EA6A6A0030547F /* IntradayViewController */ = {
-			isa = PBXGroup;
-			children = (
-				0AD54B6F22EA6A910030547F /* IntradayViewController.h */,
-				0AD54B7022EA6A910030547F /* IntradayViewController.m */,
-			);
-			name = IntradayViewController;
-			sourceTree = "<group>";
-		};
-		0AD54B7222EB398E0030547F /* FavouritesViewController */ = {
-			isa = PBXGroup;
-			children = (
-				0AA0100722ED032D008DD5AE /* FavouritesCollectionViewCell */,
-				0AD54B7322EB39BB0030547F /* FavouritesViewController.h */,
-				0AD54B7422EB39BB0030547F /* FavouritesViewController.m */,
-			);
-			name = FavouritesViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
