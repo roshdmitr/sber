@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "NetworkService.h"
-#import "CoreDataController.h"
+#import "CoreDataService.h"
 #import "Stock+CoreDataProperties.h"
+#import "CurrentStockDataModelDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IntradayViewController : UIViewController <NetworkServiceDelegate>
+@interface IntradayViewController : UIViewController <CurrentStockDataModelDelegate>
 
 - (void)setSymbol:(NSString *)symbol;
 

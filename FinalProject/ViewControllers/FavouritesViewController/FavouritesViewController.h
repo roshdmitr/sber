@@ -1,5 +1,5 @@
 //
-//  DailyViewController.h
+//  FavouritesViewController.h
 //  FinalProject
 //
 //  Created by Дмитрий Рощин on 26/07/2019.
@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "NetworkService.h"
-#import "CoreDataController.h"
+#import "CoreDataService.h"
 #import "Stock+CoreDataProperties.h"
 #import "FavouritesCollectionViewCell.h"
 #import "AppDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FavouritesViewController : UIViewController <NetworkServiceDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface FavouritesViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+
 
 @end
 

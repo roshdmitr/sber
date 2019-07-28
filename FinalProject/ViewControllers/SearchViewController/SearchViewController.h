@@ -16,8 +16,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, NetworkServiceDelegate>
-
+@interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CurrentStockDataModelDelegate>
 
 @end
 

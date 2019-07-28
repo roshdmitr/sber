@@ -28,6 +28,7 @@ static NSString *const APIDictionaryKeyTooMuchRequests = @"Note";
     self = [super init];
     _sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration;
     _session = [NSURLSession sessionWithConfiguration:_sessionConfiguration];
+    _delegate = [CurrentStockDataModel sharedInstance];
     return self;
 }
 
@@ -51,10 +52,7 @@ static NSString *const APIDictionaryKeyTooMuchRequests = @"Note";
         {
             if (intradayData[APIDictionaryKeyTooMuchRequests] == nil)
             {
-                if ([self.delegate respondsToSelector:@selector(saveIntradayData::)])
-                {
-                    [self.delegate saveIntradayData:intradayData[APIDictionaryKeyTimeSeries] :intradayData[APIDictionaryKeyMetaData][APIDictionaryKeyLastRefreshed]];
-                }
+                [self.delegate saveIntradayData:intradayData];
             }
             else
             {
@@ -77,9 +75,13 @@ static NSString *const APIDictionaryKeyTooMuchRequests = @"Note";
         NSDictionary *searchResults = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         if (error == nil)
         {
-            if ([self.delegate respondsToSelector:@selector(saveSearchResults:)])
+            if (searchResults[APIDictionaryKeyTooMuchRequests] == nil)
             {
-                [self.delegate saveSearchResults:[self firstTimeParseOfSearchResults:searchResults]];
+                [self.delegate saveSearchResults:searchResults];
+            }
+            else
+            {
+                NSLog(@"Too many requests");
             }
         }
         else
@@ -88,20 +90,6 @@ static NSString *const APIDictionaryKeyTooMuchRequests = @"Note";
         }
     }];
     [dataTask resume];
-}
-
-- (NSArray *)firstTimeParseOfSearchResults:(NSDictionary *)searchResults
-{
-    if ([searchResults[APIDictionaryKeyMain] isKindOfClass:[NSArray class]] && searchResults[APIDictionaryKeyMain] != nil)
-    {
-        NSArray *resultsAsAnArray = [[NSArray alloc] initWithArray:searchResults[APIDictionaryKeyMain]];
-        return resultsAsAnArray;
-    }
-    else
-    {
-        NSLog(@"Search results don't include array");
-        return nil;
-    }
 }
 
 @end

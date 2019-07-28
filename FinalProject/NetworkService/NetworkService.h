@@ -11,6 +11,7 @@
 #import "NetworkServiceDelegate.h"
 #import "APIDictionaryKeysSearch.h"
 #import "APIDictionaryKeysQuote.h"
+#import "CurrentStockDataModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

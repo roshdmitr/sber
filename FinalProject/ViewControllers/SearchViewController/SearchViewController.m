@@ -11,7 +11,6 @@
 @interface SearchViewController ()
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *searchResults;
 @property (nonatomic, strong) UISearchController *searchController;
 
 @end
@@ -39,10 +38,10 @@
     [self.view addSubview:_tableView];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
-    [NetworkService sharedInstance].delegate = self;
+    [super viewWillAppear:animated];
+    [CurrentStockDataModel sharedInstance].delegate = self;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -52,20 +51,14 @@
     {
         appDelegate.intradayViewController = [[IntradayViewController alloc] init];
     }
-    [appDelegate.intradayViewController setSymbol:_searchResults[indexPath.row][APIDictionaryKeySymbol]];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back to search" style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(backButtonClicked)];
+    [appDelegate.intradayViewController setSymbol:[CurrentStockDataModel sharedInstance].searchResults[indexPath.row][APIDictionaryKeySymbol]];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back to search" style:UIBarButtonItemStylePlain target:self.navigationController action:nil];
     [self.navigationController pushViewController:appDelegate.intradayViewController animated:YES];
 }
 
-- (void)backButtonClicked
-{
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
 
-
-- (void)saveSearchResults:(NSArray *)searchResults
+- (void)updateTableView
 {
-    _searchResults = [[NSArray alloc] initWithArray:searchResults];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -79,9 +72,9 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"identifier"];
     }
-    if (_searchResults != nil)
+    if ([CurrentStockDataModel sharedInstance].searchResults != nil)
     {
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", _searchResults[indexPath.row][APIDictionaryKeySymbol], _searchResults[indexPath.row][APIDictionaryKeyName]];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", [CurrentStockDataModel sharedInstance].searchResults[indexPath.row][APIDictionaryKeySymbol], [CurrentStockDataModel sharedInstance].searchResults[indexPath.row][APIDictionaryKeyName]];
     }
     
     return cell;
@@ -89,7 +82,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _searchResults.count;
+    return [CurrentStockDataModel sharedInstance].searchResults.count;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar

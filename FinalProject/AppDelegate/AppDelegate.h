@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SearchViewController.h"
 #import "FavouritesViewController.h"
-#import "CoreDataController.h"
+#import "CoreDataService.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
