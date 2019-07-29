@@ -24,8 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<CurrentStockDataModelDelegate> delegate;
 
-@property (nonatomic, strong) NSArray<NSDictionary<NSString *, NSString *> *> *searchResults;
-@property (nonatomic, strong) NSDictionary<NSString *, NSString *> *intradayData;
+@property (nonatomic, strong, nullable) NSArray<NSDictionary<NSString *, NSString *> *> *searchResults;
+@property (nonatomic, strong, nullable) NSDictionary<NSString *, NSString *> *intradayData;
 @property (nonatomic, strong) NSString *lastUpdated;
 
 @end

@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 
-- (void)saveSearchResults:(NSDictionary *)searchResults;
-- (void)saveIntradayData:(NSDictionary *)intradayData;
+- (BOOL)saveSearchResults:(NSDictionary *)searchResults;
+- (BOOL)saveIntradayData:(NSDictionary *)intradayData;
 
 @end
 
