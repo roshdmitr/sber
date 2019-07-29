@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A0E002222EC831D0022BF8D /* Stock+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E002022EC831D0022BF8D /* Stock+CoreDataClass.m */; };
 		0A0E002C22EC8B8A0022BF8D /* CoreDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E002B22EC8B8A0022BF8D /* CoreDataService.m */; };
-		0A245C9D22EE41CB0031DEF1 /* CurrentStockDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A245C9C22EE41CB0031DEF1 /* CurrentStockDataModel.m */; };
+		0A1CEF0522EE6FF50013EF85 /* CurrentStockDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A1CEF0422EE6FF40013EF85 /* CurrentStockDataModel.m */; };
 		0A3FDFB822DB906300F04DA2 /* NetworkService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FDFB722DB906300F04DA2 /* NetworkService.m */; };
 		0A83999D22E9105C00C18B0F /* APIDictionaryKeysSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A83999C22E9105C00C18B0F /* APIDictionaryKeysSearch.m */; };
 		0A88777F22E9E1E100412E59 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A88777E22E9E1E100412E59 /* SearchViewController.m */; };
@@ -51,9 +51,9 @@
 		0A0E002A22EC8B8A0022BF8D /* CoreDataService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataService.h; sourceTree = "<group>"; };
 		0A0E002B22EC8B8A0022BF8D /* CoreDataService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataService.m; sourceTree = "<group>"; };
 		0A1CEEFF22EE5B310013EF85 /* CurrentStockDataModelDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentStockDataModelDelegate.h; sourceTree = "<group>"; };
-		0A1CEF0222EE630E0013EF85 /* NetworkServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkServiceDelegate.h; path = ../../../../../Desktop/NetworkServiceDelegate.h; sourceTree = "<group>"; };
-		0A245C9B22EE41CB0031DEF1 /* CurrentStockDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CurrentStockDataModel.h; path = ../../../FinalProject/FinalProject/CurrentStockDataModel/CurrentStockDataModel.h; sourceTree = "<group>"; };
-		0A245C9C22EE41CB0031DEF1 /* CurrentStockDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CurrentStockDataModel.m; path = ../../../FinalProject/FinalProject/CurrentStockDataModel/CurrentStockDataModel.m; sourceTree = "<group>"; };
+		0A1CEF0322EE6FA80013EF85 /* NetworkServiceDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkServiceDelegate.h; sourceTree = "<group>"; };
+		0A1CEF0422EE6FF40013EF85 /* CurrentStockDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentStockDataModel.m; sourceTree = "<group>"; };
+		0A1CEF0622EE70060013EF85 /* CurrentStockDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentStockDataModel.h; sourceTree = "<group>"; };
 		0A3FDFB622DB906300F04DA2 /* NetworkService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkService.h; sourceTree = "<group>"; };
 		0A3FDFB722DB906300F04DA2 /* NetworkService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkService.m; sourceTree = "<group>"; };
 		0A83999B22E9105C00C18B0F /* APIDictionaryKeysSearch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIDictionaryKeysSearch.h; sourceTree = "<group>"; };
@@ -136,9 +136,9 @@
 		0A245C9022EE3EBE0031DEF1 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
-				0A1CEF0222EE630E0013EF85 /* NetworkServiceDelegate.h */,
 				0A3FDFB622DB906300F04DA2 /* NetworkService.h */,
 				0A3FDFB722DB906300F04DA2 /* NetworkService.m */,
+				0A1CEF0322EE6FA80013EF85 /* NetworkServiceDelegate.h */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -221,8 +221,8 @@
 			isa = PBXGroup;
 			children = (
 				0A1CEEFF22EE5B310013EF85 /* CurrentStockDataModelDelegate.h */,
-				0A245C9B22EE41CB0031DEF1 /* CurrentStockDataModel.h */,
-				0A245C9C22EE41CB0031DEF1 /* CurrentStockDataModel.m */,
+				0A1CEF0622EE70060013EF85 /* CurrentStockDataModel.h */,
+				0A1CEF0422EE6FF40013EF85 /* CurrentStockDataModel.m */,
 			);
 			path = CurrentStockDataModel;
 			sourceTree = "<group>";
@@ -426,8 +426,8 @@
 				0AC77EDB22ECC4210056E14B /* Stock+CoreDataProperties.m in Sources */,
 				0AD54B7922EBA8030030547F /* APIDictionaryKeysQuote.m in Sources */,
 				0AA0100622ECFB79008DD5AE /* FinalProject.xcdatamodeld in Sources */,
+				0A1CEF0522EE6FF50013EF85 /* CurrentStockDataModel.m in Sources */,
 				0A0E002C22EC8B8A0022BF8D /* CoreDataService.m in Sources */,
-				0A245C9D22EE41CB0031DEF1 /* CurrentStockDataModel.m in Sources */,
 				0A8A7FF322DA28B200CC1D8F /* main.m in Sources */,
 				0AD54B7522EB39BB0030547F /* FavouritesViewController.m in Sources */,
 				0A8A7FE222DA28B100CC1D8F /* AppDelegate.m in Sources */,
