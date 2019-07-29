@@ -28,6 +28,7 @@
 		0AD54B7122EA6A910030547F /* IntradayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD54B7022EA6A910030547F /* IntradayViewController.m */; };
 		0AD54B7522EB39BB0030547F /* FavouritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD54B7422EB39BB0030547F /* FavouritesViewController.m */; };
 		0AD54B7922EBA8030030547F /* APIDictionaryKeysQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD54B7822EBA8030030547F /* APIDictionaryKeysQuote.m */; };
+		0ADF667222EF97B700FBD14F /* CoreDataServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF667122EF97B700FBD14F /* CoreDataServiceTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		0AD54B7422EB39BB0030547F /* FavouritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavouritesViewController.m; sourceTree = "<group>"; };
 		0AD54B7722EBA8030030547F /* APIDictionaryKeysQuote.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIDictionaryKeysQuote.h; sourceTree = "<group>"; };
 		0AD54B7822EBA8030030547F /* APIDictionaryKeysQuote.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIDictionaryKeysQuote.m; sourceTree = "<group>"; };
+		0ADF667122EF97B700FBD14F /* CoreDataServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataServiceTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,6 +313,7 @@
 				0A3BE2D122EF294E002FD912 /* OCMock */,
 				0A3BE2CD22EF0ED7002FD912 /* CurrentStockDataModelTests.m */,
 				0A3BE2CF22EF22E1002FD912 /* NetworkServiceTests.m */,
+				0ADF667122EF97B700FBD14F /* CoreDataServiceTests.m */,
 				0A8A7FFE22DA28B200CC1D8F /* Info.plist */,
 			);
 			path = FinalProjectTests;
@@ -489,6 +492,7 @@
 			files = (
 				0A3BE2D022EF22E1002FD912 /* NetworkServiceTests.m in Sources */,
 				0A3BE2CE22EF0ED7002FD912 /* CurrentStockDataModelTests.m in Sources */,
+				0ADF667222EF97B700FBD14F /* CoreDataServiceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,7 +708,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/FinalProjectTests/OCMock",
 				);
-				OTHER_LDFLAGS = "-Objc";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = iOSSchool.finalProjectTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -729,7 +733,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/FinalProjectTests/OCMock",
 				);
-				OTHER_LDFLAGS = "-Objc";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = iOSSchool.finalProjectTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

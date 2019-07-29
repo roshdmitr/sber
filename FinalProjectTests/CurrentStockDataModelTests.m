@@ -10,6 +10,7 @@
 #import "CurrentStockDataModel.h"
 #import "IntradayViewController.h"
 #import "SearchViewController.h"
+#import "OCMock/OCMock.h"
 
 @interface CurrentStockDataModelTests : XCTestCase
 
@@ -26,18 +27,6 @@
 - (void)tearDown
 {
     
-}
-
-- (void)testExample
-{
-    
-}
-
-- (void)testPerformanceExample
-{
-    [self measureBlock:^{
-        
-    }];
 }
 
 
@@ -67,19 +56,11 @@
 
 - (void)testSaveSearchResultsNormal
 {
-    SearchViewController *viewController = [[SearchViewController alloc] init];
+    id viewController = OCMProtocolMock(@protocol(CurrentStockDataModelDelegate));
     [CurrentStockDataModel sharedInstance].delegate = viewController;
     NSDictionary *testDictionary = @{ APIDictionaryKeyMain : @[ @{ APIDictionaryKeySymbol : @"BA", APIDictionaryKeyName : @"The Boeing Company", APIDictionaryKeyRegion : @"United States" }, @{ APIDictionaryKeySymbol : @"BABA", APIDictionaryKeyName : @"Alibaba Group Holding Limited", APIDictionaryKeyRegion : @"United States" } ] };
     [[CurrentStockDataModel sharedInstance] saveSearchResults:testDictionary];
     XCTAssertEqual([CurrentStockDataModel sharedInstance].searchResults, testDictionary[APIDictionaryKeyMain]);
-}
-
-- (void)testSearchResultsDelegateMethodNotImplemented
-{
-    IntradayViewController *controller = [[IntradayViewController alloc] init];
-    [CurrentStockDataModel sharedInstance].delegate = controller;
-    NSDictionary *testDictionary = @{ APIDictionaryKeyMain : @[ @{ APIDictionaryKeySymbol : @"BA", APIDictionaryKeyName : @"The Boeing Company", APIDictionaryKeyRegion : @"United States" }, @{ APIDictionaryKeySymbol : @"BABA", APIDictionaryKeyName : @"Alibaba Group Holding Limited", APIDictionaryKeyRegion : @"United States" } ] };
-    XCTAssertFalse([[CurrentStockDataModel sharedInstance] saveSearchResults:testDictionary]);
 }
 
 
@@ -87,9 +68,7 @@
 
 - (void)testSaveIntradayDataNormal
 {
-    IntradayViewController *viewController = [[IntradayViewController alloc] init];
-    [viewController setSymbol:@"test"];
-    [viewController viewDidLoad];
+    id viewController = OCMProtocolMock(@protocol(CurrentStockDataModelDelegate));
     [CurrentStockDataModel sharedInstance].delegate = viewController;
     NSDictionary *testDictionary = @{ APIDictionaryKeyMetaData : @{ APIDictionaryKeySymbol : @"MSFT", APIDictionaryKeyLastRefreshed : @"2019-07-26 16:00:00" }, APIDictionaryKeyTimeSeries : @{ @"2019-07-26 16:00:00" : @{ APIDictionaryKeyLow : @"141.3000", APIDictionaryKeyHigh : @"141.6500", APIDictionaryKeyOpen : @"141.6000", APIDictionaryKeyClose : @"141.3300" } } };
     [[CurrentStockDataModel sharedInstance] saveIntradayData:testDictionary];
@@ -109,14 +88,5 @@
     [[CurrentStockDataModel sharedInstance] saveIntradayData:testDictionary];
     XCTAssertNil([CurrentStockDataModel sharedInstance].intradayData);
 }
-
-- (void)testIntradayDataDelegateMethodNotImplemented
-{
-    SearchViewController *controller = [[SearchViewController alloc] init];
-    [CurrentStockDataModel sharedInstance].delegate = controller;
-    NSDictionary *testDictionary = @{ APIDictionaryKeyMetaData : @{ APIDictionaryKeySymbol : @"MSFT", APIDictionaryKeyLastRefreshed : @"2019-07-26 16:00:00" }, APIDictionaryKeyTimeSeries : @{ @"2019-07-26 16:00:00" : @{ APIDictionaryKeyLow : @"141.3000", APIDictionaryKeyHigh : @"141.6500", APIDictionaryKeyOpen : @"141.6000", APIDictionaryKeyClose : @"141.3300" } } };
-    XCTAssertFalse([[CurrentStockDataModel sharedInstance] saveIntradayData:testDictionary]);
-}
-
 
 @end

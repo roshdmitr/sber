@@ -41,7 +41,7 @@
         {
             _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"FinalProject"];
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *error) {
-                if (error != nil) {
+                if (error) {
                     NSLog(@"Unresolved error %@, %@", error, error.userInfo);
                     abort();
                 }

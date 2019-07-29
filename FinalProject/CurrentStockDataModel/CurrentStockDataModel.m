@@ -33,7 +33,7 @@
 
 #pragma mark - NetworkServiceDelegate
 
-- (BOOL)saveSearchResults:(NSDictionary *)searchResults
+- (void)saveSearchResults:(NSDictionary *)searchResults
 {
     if (searchResults[APIDictionaryKeyMain])
     {
@@ -42,23 +42,20 @@
         if ([self.delegate respondsToSelector:@selector(updateTableView)])
         {
             [self.delegate updateTableView];
-            return YES;
         }
         else
         {
             NSLog(@"updateTableView wasn't implemented!)");
-            return NO;
         }
     }
     else
     {
         NSLog(@"Search results can't be parsed");
-        return NO;
     }
     
 }
 
-- (BOOL)saveIntradayData:(NSDictionary *)intradayData
+- (void)saveIntradayData:(NSDictionary *)intradayData
 {
     if (intradayData[APIDictionaryKeyTimeSeries])
     {
@@ -67,18 +64,15 @@
         if ([self.delegate respondsToSelector:@selector(updateView)])
         {
             [self.delegate updateView];
-            return YES;
         }
         else
         {
             NSLog(@"updateView wasn't implemented!");
-            return NO;
         }
     }
     else
     {
         NSLog(@"Intraday data can't be parsed)");
-        return NO;
     }
 }
 
