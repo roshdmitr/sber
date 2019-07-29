@@ -6,7 +6,9 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import "CoreDataService.h"
+
 
 @interface CoreDataService()
 
@@ -14,9 +16,10 @@
 
 @end
 
+
 @implementation CoreDataService
 
-#pragma mark - Singleton Instance
+#pragma mark - Singleton
 
 + (instancetype)sharedInstance
 {
@@ -34,7 +37,7 @@
 {
     self = [super init];
     @synchronized (self) {
-        if (_persistentContainer == nil)
+        if (!_persistentContainer)
         {
             _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"FinalProject"];
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *error) {
@@ -44,7 +47,7 @@
                 }
             }];
         }
-        if (_managedObjectContext == nil)
+        if (!_managedObjectContext)
         {
             _managedObjectContext = _persistentContainer.viewContext;
         }
@@ -63,14 +66,14 @@
     }
 }
 
-#pragma mark - Core Data count, load, save, delete items
+#pragma mark - Core Data operations with persistent store
 
 - (NSInteger)countItemsSavedForEntityName:(NSString *)entityName
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
     NSError *error = nil;
     NSArray *fetchedResults = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (error == nil)
+    if (fetchedResults)
     {
         return fetchedResults.count;
     }
@@ -86,7 +89,7 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
     NSError *error = nil;
     NSArray *fetchedResults = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (error == nil)
+    if (fetchedResults)
     {
         return fetchedResults;
     }
@@ -111,7 +114,17 @@
     fetchRequest.predicate = predicate;
     NSError *error = nil;
     NSArray *fetchedResults = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    [_managedObjectContext deleteObject:fetchedResults[0]];
+    if (fetchedResults)
+    {
+        for (Stock *i in fetchedResults)
+        {
+            [_managedObjectContext deleteObject:i];
+        }
+    }
+    else
+    {
+        NSLog(@"Error fetching");
+    }
     [self saveContext];
 }
 

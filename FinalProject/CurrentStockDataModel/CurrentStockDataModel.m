@@ -6,17 +6,19 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import "CurrentStockDataModel.h"
+
 
 @interface CurrentStockDataModel ()
 
-
-
 @end
+
 
 @implementation CurrentStockDataModel
 
-#pragma mark Singleton method
+
+#pragma mark Singleton
 
 + (instancetype)sharedInstance
 {
@@ -29,11 +31,13 @@
 }
 
 
+#pragma mark - NetworkServiceDelegate
+
 - (void)saveSearchResults:(NSDictionary *)searchResults
 {
-    if (searchResults[APIDictionaryKeyMain] != nil)
+    if (searchResults[APIDictionaryKeyMain])
     {
-        NSArray *resultsAsAnArray = [[NSArray alloc] initWithArray:searchResults[APIDictionaryKeyMain]];
+        NSArray *resultsAsAnArray = searchResults[APIDictionaryKeyMain];
         _searchResults = resultsAsAnArray;
         if ([self.delegate respondsToSelector:@selector(updateTableView)])
         {
@@ -53,10 +57,10 @@
 
 - (void)saveIntradayData:(nonnull NSDictionary *)intradayData
 {
-    if (intradayData[APIDictionaryKeyTimeSeries] != nil)
+    if (intradayData[APIDictionaryKeyTimeSeries])
     {
-        _lastUpdated = [NSString stringWithString:intradayData[APIDictionaryKeyMetaData][APIDictionaryKeyLastRefreshed]];
-        _intradayData = _intradayData = [NSDictionary dictionaryWithDictionary:intradayData[APIDictionaryKeyTimeSeries][_lastUpdated]];
+        _lastUpdated = intradayData[APIDictionaryKeyMetaData][APIDictionaryKeyLastRefreshed];
+        _intradayData = _intradayData = intradayData[APIDictionaryKeyTimeSeries][_lastUpdated];
         if ([self.delegate respondsToSelector:@selector(updateView)])
         {
             [self.delegate updateView];
@@ -70,16 +74,6 @@
     {
         NSLog(@"Intraday data can't be parsed)");
     }
-}
-
-- (void)saveNumberOfItemsInFavourites
-{
-    _numberOfItemsInFavourites = [[CoreDataService sharedInstance] countItemsSavedForEntityName:@"Stock"];
-}
-
-- (void)saveFavourites
-{
-    _favourites = [[CoreDataService sharedInstance] loadItemsFromCoreDataForEntityName:@"Stock"];
 }
 
 @end

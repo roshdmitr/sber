@@ -6,7 +6,9 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import "APIDictionaryKeysQuote.h"
+
 
 NSString * const APIDictionaryKeyMetaData = @"Meta Data";
 NSString * const APIDictionaryKeyTimeSeries = @"Time Series (1min)";

@@ -6,15 +6,19 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
 #import "NetworkServiceDelegate.h"
+#import "CurrentStockDataModelDelegate.h"
 #import "NetworkService.h"
 #import "APIDictionaryKeysSearch.h"
+#import "CurrentStockDataModel.h"
 #import "IntradayViewController.h"
-#import "FavouritesViewController.h"
 #import "AppDelegate.h"
 
+
 NS_ASSUME_NONNULL_BEGIN
+
 
 @interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CurrentStockDataModelDelegate>
 

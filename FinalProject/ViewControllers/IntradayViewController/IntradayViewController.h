@@ -6,13 +6,16 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
 #import "NetworkService.h"
 #import "CoreDataService.h"
-#import "Stock+CoreDataProperties.h"
 #import "CurrentStockDataModelDelegate.h"
+#import "CurrentStockDataModel.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
+
 
 @interface IntradayViewController : UIViewController <CurrentStockDataModelDelegate>
 

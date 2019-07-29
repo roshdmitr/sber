@@ -6,14 +6,15 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "NetworkServiceDelegate.h"
-#import "APIDictionaryKeysSearch.h"
-#import "APIDictionaryKeysQuote.h"
 #import "CurrentStockDataModel.h"
 
+
 NS_ASSUME_NONNULL_BEGIN
+
 
 @interface NetworkService : NSObject <NSURLSessionDelegate>
 

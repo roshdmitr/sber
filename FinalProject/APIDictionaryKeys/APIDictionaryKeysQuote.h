@@ -6,7 +6,9 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
+
 
 extern NSString * const APIDictionaryKeyMetaData;
 extern NSString * const APIDictionaryKeyTimeSeries;

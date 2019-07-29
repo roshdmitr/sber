@@ -6,14 +6,17 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
 #import "NetworkServiceDelegate.h"
+#import "CurrentStockDataModelDelegate.h"
 #import "APIDictionaryKeysSearch.h"
 #import "APIDictionaryKeysQuote.h"
 #import "CoreDataService.h"
-#import "CurrentStockDataModelDelegate.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
+
 
 @interface CurrentStockDataModel : NSObject <NetworkServiceDelegate>
 
@@ -21,12 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<CurrentStockDataModelDelegate> delegate;
 
-@property (nonatomic, strong) NSArray *searchResults;
-@property (nonatomic, strong) NSDictionary *intradayData;
+@property (nonatomic, strong) NSArray<NSDictionary<NSString *, NSString *> *> *searchResults;
+@property (nonatomic, strong) NSDictionary<NSString *, NSString *> *intradayData;
 @property (nonatomic, strong) NSString *lastUpdated;
-@property (nonatomic, assign) NSInteger numberOfItemsInFavourites;
-@property (nonatomic, strong) NSArray *favourites;
-
 
 @end
 

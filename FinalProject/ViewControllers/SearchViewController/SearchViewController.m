@@ -6,7 +6,9 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import "SearchViewController.h"
+
 
 @interface SearchViewController ()
 
@@ -15,7 +17,11 @@
 
 @end
 
+
 @implementation SearchViewController
+
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,18 +50,8 @@
     [CurrentStockDataModel sharedInstance].delegate = self;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (appDelegate.intradayViewController == nil)
-    {
-        appDelegate.intradayViewController = [[IntradayViewController alloc] init];
-    }
-    [appDelegate.intradayViewController setSymbol:[CurrentStockDataModel sharedInstance].searchResults[indexPath.row][APIDictionaryKeySymbol]];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back to search" style:UIBarButtonItemStylePlain target:self.navigationController action:nil];
-    [self.navigationController pushViewController:appDelegate.intradayViewController animated:YES];
-}
 
+#pragma mark - CurrentStockDataModelDelegate
 
 - (void)updateTableView
 {
@@ -65,6 +61,23 @@
 }
 
 
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (!appDelegate.intradayViewController)
+    {
+        appDelegate.intradayViewController = [[IntradayViewController alloc] init];
+    }
+    [appDelegate.intradayViewController setSymbol:[CurrentStockDataModel sharedInstance].searchResults[indexPath.row][APIDictionaryKeySymbol]];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back to search" style:UIBarButtonItemStylePlain target:self.navigationController action:nil];
+    [self.navigationController pushViewController:appDelegate.intradayViewController animated:YES];
+}
+
+
+#pragma mark - UITableViewDataSource
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"identifier"];
@@ -72,7 +85,7 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"identifier"];
     }
-    if ([CurrentStockDataModel sharedInstance].searchResults != nil)
+    if ([CurrentStockDataModel sharedInstance].searchResults)
     {
         cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", [CurrentStockDataModel sharedInstance].searchResults[indexPath.row][APIDictionaryKeySymbol], [CurrentStockDataModel sharedInstance].searchResults[indexPath.row][APIDictionaryKeyName]];
     }

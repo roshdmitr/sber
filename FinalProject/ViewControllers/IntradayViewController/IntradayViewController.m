@@ -6,7 +6,9 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import "IntradayViewController.h"
+
 
 @interface IntradayViewController ()
 
@@ -20,14 +22,18 @@
 @property (nonatomic, strong) NSString *lastUpdated;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) UIFont *arialHebrewBold;
-@property (nonatomic, strong) NSDictionary *arialHebrewBoldDict;
+@property (nonatomic, strong) NSDictionary<NSAttributedStringKey, UIFont *> *arialHebrewBoldDict;
 @property (nonatomic, strong) UIFont *arialHebrew;
-@property (nonatomic, strong) NSDictionary *arialHebrewDict;
+@property (nonatomic, strong) NSDictionary<NSAttributedStringKey, UIFont *> *arialHebrewDict;
 @property (nonatomic, strong) UIBarButtonItem *addToFavouritesButton;
 
 @end
 
+
 @implementation IntradayViewController
+
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
@@ -63,6 +69,28 @@
     self.navigationItem.rightBarButtonItem = _addToFavouritesButton;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self updateLabelData];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(updateLabelData) userInfo:nil repeats:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [CurrentStockDataModel sharedInstance].delegate = self;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [_timer invalidate];
+}
+
+
+#pragma mark - Button selector
+
 - (void)addToFavouritesButtonClicked
 {
     if ([[CoreDataService sharedInstance] countItemsSavedForEntityName:@"Stock"] == 0)
@@ -84,20 +112,19 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated
+
+#pragma mark - Timer selector
+
+- (void)updateLabelData
 {
-    [super viewWillAppear:animated];
-    [CurrentStockDataModel sharedInstance].delegate = self;
+    [[NetworkService sharedInstance] updateIntradayData:_symbol];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [_timer invalidate];
-}
+#pragma mark - CurrentStockDataModelDelegate
 
 - (void)updateView
 {
+    [self updateMainLabel];
     [self updateOtherLabel:_openLabel :@"Price at open: " :APIDictionaryKeyOpen];
     [self updateOtherLabel:_closeLabel :@"Price at close: " :APIDictionaryKeyClose];
     [self updateOtherLabel:_highLabel :@"Highest price: " :APIDictionaryKeyHigh];
@@ -107,22 +134,15 @@
 }
 
 
+#pragma mark - Instance method
+
 - (void)setSymbol:(NSString *)symbol
 {
     _symbol = [NSString stringWithString:symbol];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self updateLabelData];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(updateLabelData) userInfo:nil repeats:YES];
-}
 
-- (void)updateLabelData
-{
-    [[NetworkService sharedInstance] updateIntradayData:_symbol];
-}
+#pragma mark - Layout
 
 - (void)setupMainLabel
 {
@@ -132,10 +152,10 @@
     [_mainLabel.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:30].active = YES;
     [_mainLabel.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-30].active = YES;
     UIFont *arialHebrewBold = [UIFont fontWithName:@"ArialHebrew-Bold" size:40];
-    NSDictionary *arialHebrewBoldDict = [NSDictionary dictionaryWithObject:arialHebrewBold forKey:NSFontAttributeName];
+    NSDictionary *arialHebrewBoldDict = @{NSFontAttributeName : arialHebrewBold};
     NSMutableAttributedString *boldAttrString = [[NSMutableAttributedString alloc] initWithString:_symbol attributes:arialHebrewBoldDict];
     UIFont *arialHebrew = [UIFont fontWithName:@"ArialHebrew" size:30];
-    NSDictionary *arialHebrewDict = [NSDictionary dictionaryWithObject:arialHebrew forKey:NSFontAttributeName];
+    NSDictionary *arialHebrewDict = @{NSFontAttributeName : arialHebrew};
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"\nIntraday quotes:" attributes:arialHebrewDict];
     [boldAttrString appendAttributedString:attrString];
     _mainLabel.numberOfLines = 2;
@@ -159,10 +179,24 @@
     
 }
 
+- (void)updateMainLabel
+{
+    UIFont *arialHebrewBold = [UIFont fontWithName:@"ArialHebrew-Bold" size:40];
+    NSDictionary *arialHebrewBoldDict = @{NSFontAttributeName : arialHebrewBold};
+    UIFont *arialHebrew = [UIFont fontWithName:@"ArialHebrew" size:30];
+    NSDictionary *arialHebrewDict = @{NSFontAttributeName : arialHebrew};
+    NSMutableAttributedString *boldAttrString = [[NSMutableAttributedString alloc] initWithString:_symbol attributes:arialHebrewBoldDict];
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@"\nIntraday quotes: " attributes:arialHebrewDict];
+        [boldAttrString appendAttributedString:attrString];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.mainLabel.attributedText = boldAttrString;
+    });
+}
+
 - (void)updateOtherLabel:(UILabel *)label :(NSString *)text :(NSString *)APIDictionaryKey
 {
     NSMutableAttributedString *boldAttrString = [[NSMutableAttributedString alloc] initWithString:text attributes:_arialHebrewBoldDict];
-    if ([CurrentStockDataModel sharedInstance].intradayData[APIDictionaryKey] != nil)
+    if ([CurrentStockDataModel sharedInstance].intradayData[APIDictionaryKey])
     {
         NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:[CurrentStockDataModel sharedInstance].intradayData[APIDictionaryKey] attributes:_arialHebrewDict];
         [boldAttrString appendAttributedString:attrString];
@@ -181,6 +215,5 @@
         self.lastUpdatedLabel.attributedText = boldAttrString;
     });
 }
-
 
 @end

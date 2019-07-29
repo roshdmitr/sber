@@ -136,9 +136,9 @@
 		0A245C9022EE3EBE0031DEF1 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
+				0A1CEF0322EE6FA80013EF85 /* NetworkServiceDelegate.h */,
 				0A3FDFB622DB906300F04DA2 /* NetworkService.h */,
 				0A3FDFB722DB906300F04DA2 /* NetworkService.m */,
-				0A1CEF0322EE6FA80013EF85 /* NetworkServiceDelegate.h */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -146,9 +146,9 @@
 		0A245C9122EE3ED10031DEF1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				0A245C9422EE3EF10031DEF1 /* IntradayViewController */,
-				0A245C9322EE3EE70031DEF1 /* FavouritesViewController */,
 				0A245C9222EE3EDF0031DEF1 /* SearchViewController */,
+				0A245C9322EE3EE70031DEF1 /* FavouritesViewController */,
+				0A245C9422EE3EF10031DEF1 /* IntradayViewController */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

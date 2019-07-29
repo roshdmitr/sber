@@ -6,7 +6,9 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import "FavouritesViewController.h"
+
 
 @interface FavouritesViewController ()
 
@@ -14,7 +16,11 @@
 
 @end
 
+
 @implementation FavouritesViewController
+
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,6 +47,9 @@
     [_collectionView reloadData];
 }
 
+
+#pragma mark - Layout
+
 - (void)setupConstraints
 {
     _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -49,6 +58,9 @@
     [_collectionView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:20].active = YES;
     [_collectionView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20].active = YES;
 }
+
+
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [[CoreDataService sharedInstance] countItemsSavedForEntityName:@"Stock"];
@@ -62,10 +74,13 @@
     return cell;
 }
 
+
+#pragma mark - UICollectionViewDelegate
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (appDelegate.intradayViewController == nil)
+    if (!appDelegate.intradayViewController)
     {
         appDelegate.intradayViewController = [[IntradayViewController alloc] init];
     }

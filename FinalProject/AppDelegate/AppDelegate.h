@@ -6,16 +6,18 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
 #import "SearchViewController.h"
 #import "FavouritesViewController.h"
+#import "IntradayViewController.h"
 #import "CoreDataService.h"
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) IntradayViewController *intradayViewController;
-
 
 @end
 

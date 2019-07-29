@@ -6,13 +6,16 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import "NetworkService.h"
+
 
 static NSString *const APIKey = @"&apikey=BGS27VRZ3W3Z0ILR";
 static NSString *const searchURL = @"https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=";
 static NSString *const intradayURL = @"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=";
 static NSString *const timeIntervalURLPart = @"&interval=1min";
 static NSString *const APIDictionaryKeyTooMuchRequests = @"Note";
+
 
 @interface NetworkService ()
 
@@ -21,7 +24,11 @@ static NSString *const APIDictionaryKeyTooMuchRequests = @"Note";
 
 @end
 
+
 @implementation NetworkService
+
+
+#pragma mark - Lifecycle
 
 - (instancetype)init
 {
@@ -31,6 +38,9 @@ static NSString *const APIDictionaryKeyTooMuchRequests = @"Note";
     _delegate = [CurrentStockDataModel sharedInstance];
     return self;
 }
+
+
+#pragma mark - Singleton
 
 + (instancetype)sharedInstance
 {
@@ -42,15 +52,18 @@ static NSString *const APIDictionaryKeyTooMuchRequests = @"Note";
     return sharedInstance;
 }
 
+
+#pragma mark - Network requests
+
 - (void)updateIntradayData:(NSString *)symbol
 {
     NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@%@", intradayURL, symbol, timeIntervalURLPart, APIKey]];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:requestURL];
     NSURLSessionDataTask *dataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSDictionary *intradayData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        if (error == nil)
+        if (intradayData)
         {
-            if (intradayData[APIDictionaryKeyTooMuchRequests] == nil)
+            if (!intradayData[APIDictionaryKeyTooMuchRequests])
             {
                 [self.delegate saveIntradayData:intradayData];
             }
@@ -73,9 +86,9 @@ static NSString *const APIDictionaryKeyTooMuchRequests = @"Note";
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:requestURL];
     NSURLSessionDataTask *dataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSDictionary *searchResults = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        if (error == nil)
+        if (searchResults)
         {
-            if (searchResults[APIDictionaryKeyTooMuchRequests] == nil)
+            if (!searchResults[APIDictionaryKeyTooMuchRequests])
             {
                 [self.delegate saveSearchResults:searchResults];
             }

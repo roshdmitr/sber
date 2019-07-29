@@ -6,7 +6,9 @@
 //  Copyright © 2019 Sberbank. All rights reserved.
 //
 
+
 #import "APIDictionaryKeysSearch.h"
+
 
 NSString * const APIDictionaryKeyMain = @"bestMatches";
 NSString * const APIDictionaryKeySymbol = @"1. symbol";

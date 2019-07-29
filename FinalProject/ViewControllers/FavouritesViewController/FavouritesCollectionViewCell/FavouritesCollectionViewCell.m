@@ -8,11 +8,16 @@
 
 #import "FavouritesCollectionViewCell.h"
 
+
 @interface FavouritesCollectionViewCell ()
 
 @end
 
+
 @implementation FavouritesCollectionViewCell
+
+
+#pragma mark - Lifecycle
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
