@@ -86,6 +86,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [CurrentStockDataModel sharedInstance].delegate = self;
 }
 
