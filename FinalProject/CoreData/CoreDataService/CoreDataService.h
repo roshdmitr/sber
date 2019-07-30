@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedInstance;
 - (void)saveContext;
-- (NSInteger)countItemsSavedForEntityName:(NSString *)entityName;
+- (NSInteger)countItemsSavedForEntityName:(NSString *)entityName withPredicate:(nullable NSPredicate *)predicate;
 - (NSArray *)loadItemsFromCoreDataForEntityName:(NSString *)entityName;
 - (void)saveToCoreDataStorageForEntityName:(NSString *)entityName symbol:(NSString *)symbol lastUpdated:(NSString *)lastUpdated;
 - (void)deleteFromCoreDataStorageForEntityName:(NSString *)entityName predicate:(NSPredicate *)predicate;

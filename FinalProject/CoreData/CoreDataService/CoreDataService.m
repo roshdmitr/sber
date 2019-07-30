@@ -68,9 +68,10 @@
 
 #pragma mark - Core Data operations with persistent store
 
-- (NSInteger)countItemsSavedForEntityName:(NSString *)entityName
+- (NSInteger)countItemsSavedForEntityName:(NSString *)entityName withPredicate:(nullable NSPredicate *)predicate
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
+    fetchRequest.predicate = predicate;
     NSError *error = nil;
     NSArray *fetchedResults = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (fetchedResults)
@@ -83,6 +84,7 @@
         return -1;
     }
 }
+
 
 - (NSArray *)loadItemsFromCoreDataForEntityName:(NSString *)entityName
 {

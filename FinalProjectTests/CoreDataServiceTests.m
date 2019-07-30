@@ -54,7 +54,7 @@
     stock2.symbol = @"test2";
     stock2.lastUpdated = @"test2";
     [[CoreDataService sharedInstance] saveContext];
-    XCTAssertEqual([[CoreDataService sharedInstance] countItemsSavedForEntityName:@"Stock"], 2);
+    XCTAssertEqual([[CoreDataService sharedInstance] countItemsSavedForEntityName:@"Stock" withPredicate:nil], 2);
     
 }
 
@@ -97,7 +97,7 @@
     stock.lastUpdated = @"test";
     [[CoreDataService sharedInstance] saveContext];
     [[CoreDataService sharedInstance] deleteFromCoreDataStorageForEntityName:@"Stock" predicate:[NSPredicate predicateWithFormat:@"symbol == %@", @"test"]];
-    XCTAssertEqual([[CoreDataService sharedInstance] countItemsSavedForEntityName:@"Stock"], 0);
+    XCTAssertEqual([[CoreDataService sharedInstance] countItemsSavedForEntityName:@"Stock" withPredicate:nil], 0);
 }
 
 

@@ -69,10 +69,14 @@
     self.navigationItem.rightBarButtonItem = _addToFavouritesButton;
 }
 
+- (void)reloadData
+{
+    [self updateLabelData];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self updateLabelData];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(updateLabelData) userInfo:nil repeats:YES];
 }
 
@@ -93,7 +97,7 @@
 
 - (void)addToFavouritesButtonClicked
 {
-    if ([[CoreDataService sharedInstance] countItemsSavedForEntityName:@"Stock"] == 0)
+    if ([[CoreDataService sharedInstance] countItemsSavedForEntityName:@"Stock" withPredicate:[NSPredicate predicateWithFormat:@"symbol == %@", _symbol]] == 0)
     {
         [[CoreDataService sharedInstance] saveToCoreDataStorageForEntityName:@"Stock" symbol:_symbol lastUpdated:_lastUpdated];
     }

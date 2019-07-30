@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IntradayViewController : UIViewController <CurrentStockDataModelDelegate>
 
 - (void)setSymbol:(NSString *)symbol;
+- (void)reloadData;
 
 @end
 

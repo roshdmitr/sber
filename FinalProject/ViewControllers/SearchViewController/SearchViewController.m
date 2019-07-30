@@ -71,6 +71,7 @@
         appDelegate.intradayViewController = [[IntradayViewController alloc] init];
     }
     [appDelegate.intradayViewController setSymbol:[CurrentStockDataModel sharedInstance].searchResults[indexPath.row][APIDictionaryKeySymbol]];
+    [appDelegate.intradayViewController reloadData];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back to search" style:UIBarButtonItemStylePlain target:self.navigationController action:nil];
     [self.navigationController pushViewController:appDelegate.intradayViewController animated:YES];
 }

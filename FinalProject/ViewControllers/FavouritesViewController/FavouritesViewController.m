@@ -63,7 +63,7 @@
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [[CoreDataService sharedInstance] countItemsSavedForEntityName:@"Stock"];
+    return [[CoreDataService sharedInstance] countItemsSavedForEntityName:@"Stock" withPredicate:nil];
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -86,7 +86,30 @@
     }
     Stock *stock = [[CoreDataService sharedInstance] loadItemsFromCoreDataForEntityName:@"Stock"][indexPath.row];
     [appDelegate.intradayViewController setSymbol:stock.symbol];
+    [appDelegate.intradayViewController reloadData];
     [self.navigationController pushViewController:appDelegate.intradayViewController animated:YES];
 }
+
+
+#pragma mark - Animations
+
+- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        FavouritesCollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        CGAffineTransform transform = CGAffineTransformMakeRotation(3.14159265f);
+        cell.label.transform = transform;
+    }];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        FavouritesCollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        CGAffineTransform transform = CGAffineTransformMakeRotation(6.2831853f);
+        cell.label.transform = transform;
+    }];
+}
+
 
 @end
