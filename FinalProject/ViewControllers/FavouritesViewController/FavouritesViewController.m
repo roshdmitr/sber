@@ -95,10 +95,17 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    __block FavouritesCollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    __block CGAffineTransform initialTransform = cell.label.transform;
+//    [UIView animateWithDuration:0.5 animations:^{
+//        CGAffineTransform transform = CGAffineTransformMakeRotation(3.14159265f);
+//        cell.label.transform = transform;
+//    }];
     [UIView animateWithDuration:0.5 animations:^{
-        FavouritesCollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
         CGAffineTransform transform = CGAffineTransformMakeRotation(3.14159265f);
         cell.label.transform = transform;
+    } completion:^(BOOL finished) {
+        cell.label.transform = initialTransform;
     }];
 }
 
@@ -106,8 +113,10 @@
 {
     [UIView animateWithDuration:0.5 animations:^{
         FavouritesCollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        CGAffineTransform initialTransform = cell.label.transform;
         CGAffineTransform transform = CGAffineTransformMakeRotation(6.2831853f);
         cell.label.transform = transform;
+        cell.label.transform = initialTransform;
     }];
 }
 

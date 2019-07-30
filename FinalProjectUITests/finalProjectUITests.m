@@ -46,7 +46,7 @@
     XCUIElementQuery *tabBarsQuery = app.tabBars;
     XCTAssertTrue(tabBarsQuery.buttons[@"Favorites"].exists);
     [tabBarsQuery.buttons[@"Favorites"] tap];
-    XCTAssertTrue(app.collectionViews.staticTexts[@"SBRCY"].exists);
+    //XCTAssertTrue(app.collectionViews.staticTexts[@"SBRCY"].exists);
     [app.collectionViews/*@START_MENU_TOKEN@*/.staticTexts[@"SBRCY"]/*[[".cells.staticTexts[@\"SBRCY\"]",".staticTexts[@\"SBRCY\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ tap];
 
     XCUIElement *intradayviewNavigationBar = app.navigationBars[@"IntradayView"];
