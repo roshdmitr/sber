@@ -95,7 +95,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    __block FavouritesCollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    __block FavouritesCollectionViewCell *cell = (FavouritesCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     __block CGAffineTransform initialTransform = cell.label.transform;
     [UIView animateWithDuration:0.5 animations:^{
         CGAffineTransform transform = CGAffineTransformMakeRotation(3.14159265f);

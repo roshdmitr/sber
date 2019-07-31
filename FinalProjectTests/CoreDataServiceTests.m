@@ -21,8 +21,8 @@
 
 - (void)setUp
 {
-    NSManagedObjectModel *mom = [NSManagedObjectModel mergedModelFromBundles:@[NSBundle.mainBundle]];
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
+    NSManagedObjectModel *managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:@[NSBundle.mainBundle]];
+    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
     [coordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:nil];
     _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     _context.persistentStoreCoordinator = coordinator;
